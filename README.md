@@ -1,2 +1,2 @@
 # Scholarspace
-We app for unuversity exploring
+We app for university exploring

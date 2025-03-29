@@ -1,0 +1,26 @@
+# Virtual environment
+myvenv/
+
+# Database
+db.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+.env/*
+
+# Media files (user-uploaded)
+media/
+
+# Static files (collected)
+staticfiles/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# macOS files
+.DS_Store

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="top_background">
+<h2>Universities offering {{ query }}</h2>
+
+
+    
+   
+    <form method="GET" class="search_form2" action="{% url 'home_search_results' %}">
+        <select id="category" name="category">
+            <option value="" disabled selected>Choose a Category</option>
+            {% for category in program_categories.keys %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+          </select>
+    
+        
+          <select id="subprogram" name="query" style="display: none;">
+            <option value="" disabled selected>Choose a Program</option>
+          </select>
+       
+        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+        
+        </button>
+
+</form>
+</div>
+
+
+<div class="scholarship_container">
+   
+
+    
+   
+    <div class="scholarship_filter_content">
+        <div class="filter">
+            <h6>Filter by university type</h6>
+           <form method="GET" class="filter_form">
+                <input type="hidden" name="query" value="{{ query }}">
+                <label>
+                <input type="radio" name="university_type" value="all" class="filter_btn {% if selected_filter == 'all' %}checked{% endif %}">All
+                </label>
+                <label>
+                <input type="radio" name="university_type" value="Public" class="filter_btn {% if selected_filter == 'public' %}checked{% endif %}">Public
+                </label>
+                <label>
+                <input type="radio" name="university_type" value="Private" class="filter_btn {% if selected_filter == 'private' %}checked{% endif %}">Private
+                </label>
+                <button type="submit">Apply filter</button>
+
+           </form> 
+        </div>
+     {% if universities %}
+    <div class="scholarship_list">
+        {% for university in universities %}
+
+        
+            <div class="card scholarship_card">
+              <div class="logo_div">
+              <img src="{{ university.university_logo.url }}" class="card-img-top card_img" alt="{{ university.name }} logo">
+              <h6>{{ university.name }}</h6>
+            </div>
+            
+                <div class="card-body">
+                    <h7>Program:<span>{{ query }}</span></h7>
+                    {% for program_type in program_types %}
+                        {% if program_type.university.id == university.id %}
+                            <p>Tel No:{{program_type.phone_number}}</p>
+                            <p> Email:{{program_type.Email}}</p>
+                            <p>Website Link: <a href="{{ program_type.website_link }}">{{ program_type.website_link }}</a></p>
+                               
+                                 
+                        {% endif %}
+                        
+                {% endfor %}
+                                
+             
+                    
+                    <a href="{% url 'programs' university.id %}?query={{ query }}" class="view_details_btn">View Details</a>
+        
+          
+                </div>
+            
+       
+    
+       
+            </div>
+         
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No universities found offering "{{ query }}". Try another search.</p>
+    {% endif %}
+
+    
+</div>
+</div>
+
+<script>
+    const programCategories = {{ program_categories|safe }};  // Pass category data as JSON
+
+    document.getElementById("category").addEventListener("change", function () {
+        let category = this.value;
+        let subprogramDropdown = document.getElementById("subprogram");
+
+        // Clear existing options
+        subprogramDropdown.innerHTML = '<option value="" disabled selected>Choose a Program</option>';
+
+        if (category in programCategories) {
+            programCategories[category].forEach(subprogram => {
+                let option = document.createElement("option");
+                option.value = subprogram;
+                option.textContent = subprogram;
+                subprogramDropdown.appendChild(option);
+            });
+
+            // Show subprogram dropdown
+            subprogramDropdown.style.display = "block";
+        }
+    });
+</script>
+{% endblock %}

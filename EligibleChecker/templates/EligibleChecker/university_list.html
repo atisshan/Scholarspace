@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="top_background">
+<h2>Universities</h2>
+
+<form method="GET" class="search_form2" action="{% url 'home_search_results' %}">
+  <select name="query" id="program">
+    <option value="" disabled selected>-- Select a Program --</option>
+    {% for program in programs %}
+        <option value="{{ program }}">{{ program }}</option>
+        {% empty %}
+        <option disabled>No programs available</option>
+    {% endfor %}
+</select>
+
+ 
+<button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+  </svg>
+
+</button>
+
+</form>
+</div>
+<div class="scholarship_container">
+
+
+      
+   
+  <div class="scholarship_filter_content">
+    <div class="filter">
+        <h6>Filter by university type</h6>
+       <form method="GET" class="filter_form">
+            <input type="hidden" name="query" value="{{ query }}">
+            <label>
+            <input type="radio" name="university_type" value="all" class="filter_btn {% if selected_filter == 'all' %}checked{% endif %}">All
+            </label>
+            <label>
+            <input type="radio" name="university_type" value="Public" class="filter_btn {% if selected_filter == 'public' %}checked{% endif %}">Public
+            </label>
+            <label>
+            <input type="radio" name="university_type" value="Private" class="filter_btn {% if selected_filter == 'private' %}checked{% endif %}">Private
+            </label>
+            <button type="submit">Apply filter</button>
+
+       </form> 
+    </div>
+    
+  
+{% if universities %}
+      <div class="university_list">
+      {% for university in universities %}
+
+          <div class="card scholarship_card">
+            <div class="logo_div">
+            <img src="{{ university.university_logo.url }}" class="card-img-top card_img" alt="{{ university.name }} logo">
+            <h6>{{ university.name }}</h6>
+          </div>
+        
+
+          <div class="card-body">
+          
+            
+              <p>Tel No:{{university.main_phone_number}}</p>
+              <p> Email:<a href="mailto: {{ university.main_email }}">{{ university.main_email }}</a></p>
+              <p>Website Link: <a href="{{ university.main_website_link }}" target="_blank">{{ university.main_website_link }}</a></p>
+              
+              <a href="{% url 'programs' university.id %}" class="view_details_btn">View Programs</a>
+
+
+          </div>
+        </div>
+        
+      {% endfor %}
+      </div>
+{% else %}
+<p>No universities found offering "{{ query }}". Try another search.</p>
+{% endif %}
+
+</div>
+</div>
+{% endblock %}

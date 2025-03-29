@@ -1,0 +1,677 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400&display=swap');
+
+
+*{
+margin:0;
+padding:0;
+}
+body{
+    width:100%;
+    padding:10px 10px;
+    height:100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f7f6f6 ;
+    
+}
+.hero-section{
+    width:100%;
+    height:100%;
+}
+.custom-navbar{
+    height:12%;
+    background:#fff !important;
+   
+}
+/* .navbar-nav{
+    margin-left:20%;
+}
+    */
+ .nav-item{
+    margin-left:50px;
+} 
+.offcanvas{
+    width:300px;
+}
+.nav-item a{
+    color:rgb(0, 147, 206);
+    font-family:Arial, Helvetica, sans-serif;;
+    font-size:18px;
+
+}
+.nav-item a:hover{
+    color:rgb(255, 154, 85);
+}
+.logotext{
+    color:rgb(255, 154, 85);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size:20px;
+    margin-top:5px;
+    text-decoration: none;
+}
+span{
+    color:rgb(0, 147, 206);
+}
+.hero-div{
+  
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to right, rgba(42, 177, 240, 0.9), rgba(0, 147, 206, 0.4)), 
+                url('../images/download\ \(13\).jpg') no-repeat right center;
+    background-size: cover;
+    color: white;
+   
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding:40px 2px;
+    
+}
+
+.hero-text{
+    max-width:900px;
+   text-align:center;
+   padding:100px 10px;
+   margin:auto;
+   text-align:center;
+   
+ 
+
+}
+.hero-text p{
+    color:#fff;
+}
+
+.hero-text span{
+    color:rgb(255, 154, 85);
+    
+}
+.hero-text h2{
+    color:#fff;
+    font-size:40px;
+    font-weight:bolder;
+    margin-bottom:20px;
+    margin-top:10px;
+}
+.hero-text a{
+    padding:15px 100px;
+    background:rgb(255, 154, 85);
+    color:white;
+    border-radius:7.5px;
+    border:none;
+    box-shadow:4px 4px 10px rgb(0, 147, 206);
+    font-size:18px;
+    
+}
+.hero-text a:hover{
+    background:rgb(240, 251, 255);
+    color:rgb(255, 154, 85);
+}
+.header{
+    width:100%;
+    height:100%;
+    margin:auto;
+  
+    padding:20px 10px;
+}
+
+.header h1{
+   
+   
+    font-size:20px;
+ 
+    color:rgb(255, 154, 85);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+
+}
+.header span{
+   
+    color:rgb(0, 147, 206);
+}
+
+
+.container1 h2{
+    font-size:28px;
+    color:rgb(0, 147, 206);
+    text-align:center;
+    
+}
+p{
+    color:rgb(50, 50, 50);
+    font-size:15px;
+}
+.container1{
+    width:100%;
+   
+    
+    margin:auto;
+    padding:10px 10px;
+}
+h3{
+    font-size:18px;
+    color:rgb(253, 154, 85);
+}
+
+form{
+    width:50%;
+    height:auto;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    padding:20px 5px;
+    background:transparent;
+   
+   
+}
+form h2{
+    color:rgb(255, 154, 85);
+}
+form div{
+    display:flex;
+    flex-direction:column;
+    width:80%;
+    height:auto;
+    padding:10px 10px;
+    margin:auto;
+    
+}
+form div input{
+    padding:7px 2px ;
+    border:1px solid rgb(50, 50, 50, 0.4);
+    border-radius:7.5px;
+    background:transparent;
+}
+form div label{
+    font-size:14px;
+}
+
+form div select{
+    padding:8px 2px;
+    border:1px solid #cecdcd;
+    border-radius:7.5px;
+    background:transparent;
+}
+form div ul li{
+    font-size:10px;
+}
+.search_form{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    width:40%;
+    margin:auto;
+    margin-right:48%;
+}
+.search_form select{
+    padding:10px 30px;
+    background:transparent;
+    border:1px solid rgb(240, 251, 255);
+    
+}
+.search_form button{
+    padding:10px 20px;
+    margin-left:10px;
+    background:rgb(255, 154, 85);
+    color:white;
+    border-radius:7.5px;
+    border:none;
+    box-shadow:4px 4px 10px rgb(0, 147, 206);
+    font-size:18px;
+}
+.search_form button:hover{
+    background-color: rgb(240, 251, 255);
+    color:rgb(255, 154, 85);
+}
+
+
+.top_background{
+    background: linear-gradient(to right, rgba(42, 177, 240, 0.9), rgba(0, 147, 206, 0.4)), 
+                url('../images/download\ \(13\).jpg') no-repeat right center;
+    background-size: cover;
+    width:95%;
+    border-radius:20px;
+    padding-top:20px;
+    
+}
+.top_background h2{
+    color:rgb(240, 251, 255);
+    font-size:30px;
+}
+.search_form2{
+    
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    width:30%;
+    gap:2px;
+    
+}
+.search_form2 select{
+    border:1px solid rgb(240, 251, 255);
+width:80%;  
+    background:transparent;
+    text-align:center;
+    
+    
+    
+}
+.search_form2 button{
+    padding:10px 20px;
+    width:20%;
+    background:rgb(255, 154, 85);
+    color:white;
+    font-size:18px;
+}
+
+.login_container{
+    width:90%;
+    
+    margin:auto;
+    margin-top:50px;
+    display:flex;
+    flex-direction:row;
+    background:transparent;
+    
+}
+.login_form{
+    border-radius:0;
+   
+    padding:30px 2px;
+    box-shadow:4px 4px 10px 2px rgb(219, 219, 219);
+    background:#fffefe;
+    border-radius:none;
+    width:50%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position:relative;
+    
+}
+.login_form svg{
+    position:absolute;
+    top:-3%;
+    left:45%;
+    color:rgb(255, 154, 85);
+}
+::-webkit-input-placeholder{
+    color:#cecdcd;
+    font-size:14px;
+}
+.login_form input{
+    padding:7px 2px ;
+    border:1px solid rgb(50, 50, 50, 0.4);
+    border-radius:7.5px;
+    background:transparent; 
+    margin:auto;
+    width:80%
+}
+.login_form label{
+    text-align:left;
+    font-size:14px;
+    margin-left:10%;
+    margin-top:5%;
+}
+.login_form button{
+    margin-top:30px;
+}
+.login_form h2{
+    color:rgb(50,50,50);
+    text-align:center;
+}
+
+.signup_container{
+    width:90%;
+    height:100%;
+   display:flex;
+   flex-direction:row;
+   background:transparent;
+    margin:auto;
+   
+}
+.svgs_holder{
+    width:30%;
+    display:flex;
+   flex-direction:column;
+   justify-content:center;
+   gap:5px;
+}
+.svgs_holder h4{
+   
+    font-size:40px;
+    color:rgb(50,50,50);
+    font-weight:lighter;
+}
+.svgs_holder h4::after{
+    content:'';
+    width:30%;
+    height:5%;
+    background:rgb(0, 147, 206);
+    display:block;
+}
+.svgs_holder svg{
+    color:rgb(255, 154, 85);
+    
+}
+.svg_container{
+    display:flex;
+    flex-direction:row;
+    gap:3px;
+    height:15%;
+    align-items:center;
+}
+
+.signup_form{
+    padding:30px 2px;
+    box-shadow:4px 4px 10px 2px rgb(219, 219, 219);
+    background:#fffefe;
+    border-radius:none;
+    width:50%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position:relative;
+}
+.signup_form svg{
+    position:absolute;
+    top:-2%;
+    left:45%;
+    color:rgb(255, 154, 85);
+}
+.signup_form h2{
+    color:rgb(50,50,50);
+    text-align:center;
+}
+
+
+
+.login_Link{
+
+    color:rgb(255, 154, 85);
+    font-size:18px;
+    white-space:nowrap;
+    
+   
+}
+.btn_link_holder{
+    display:flex;
+    align-items:left;
+    gap:2px;
+    flex-direction:row;
+    padding-top:30px;
+}
+
+
+
+.search_icon{
+    padding:9px 10px;
+    background:rgb(255, 154, 85);
+}
+.search_icon svg{
+    color:white;
+}
+
+.search_form2 button:hover{
+   background:rgb(250, 132, 53);
+}
+ form button{
+    background:rgb(0, 147, 206);
+    color:#fff;
+    padding:10px 2px;
+    border-radius:7.5px;
+    border:none;
+    width:80%;
+    margin:auto;
+}
+form button:hover{
+    background:rgb(0, 122, 170);
+}
+.helptext{
+    font-size:10px;
+}
+.scholarship_container{
+    width:100%;
+    height:100%;
+    padding:20px 5px;
+    margin-top:1%;
+   
+
+}
+.scholarship_filter_content{
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-columns:250px 1fr ;
+
+}
+.filter{
+    background:rgb(255,255,255);
+    border-radius:7.5px;
+    padding:20px 2px;
+}
+.filter_form{
+    width:90%;
+    margin:auto;
+}
+.filter_form button{
+    width:40%;
+    font-size:12px;
+    float:right;
+}
+.filter_form label{
+    color:rgb(134, 132, 132);
+}
+.filter h6{
+    color:rgb(255, 154, 85);
+    margin:auto;
+}
+.scholarship_list{
+    width:90%;
+    margin:auto;
+    height:100%;
+    display:grid;
+    grid-template-rows:repeat(3, 1fr);
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-top:20px;
+}
+.university_list{
+       width:90%;
+    margin:auto;
+    height:100%;
+    display:grid;
+    grid-template-rows:repeat(3, 1fr);
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-top:20px;
+}
+.scholarship_card{
+    background:rgb(255,255,255);      
+    padding:15px 15px;
+    border-radius:9px;
+   border:1px solid rgb(188, 232, 248);
+   box-shadow: 4px 4px 10px 2px rgb(219, 219, 219);
+   width:100%;
+   position:relative;
+   
+}
+.scholarship_card p{
+    margin-top:20px;
+}
+.card h6{
+    color:rgb(253, 154, 85);
+    font-size:20px;
+}
+.scholarship_card h3{
+    color:rgb(0, 147, 206);
+}
+li{
+    color:red;
+    font-size:12px;
+}
+.scholarship_card img{
+    position:relative;
+    width:20%;
+    height:80%;
+  z-index:1;
+  border-radius:0;
+  
+  
+  
+}
+.card-body span{
+    color:rgb(0, 147, 206);
+}
+.logo_div{
+    display:flex;
+    flex-direction:row;
+   text-align:center;
+  height:20%;
+    justify-content: space-between;;
+} 
+.logo_div h6{
+    color:rgb(50, 50, 50);
+    font-size:20px;
+    margin:auto;
+}
+.view_details_btn{
+    
+    background:rgb(0, 147, 206);
+    color:#fff;
+    padding:8px 10px;
+    border-radius:7.5px;
+    border:none;
+  
+  right:3%;
+    text-decoration: none;
+    bottom:2%;
+    position:absolute;
+}
+.view_details_btn:hover{
+    background:rgb(0, 122, 170);
+}
+
+.university_holder{
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    width: 40%;
+    text-align: left;
+}
+.university_name{
+    white-space: nowrap; 
+    font-size: 1.2rem;
+}
+
+.university_logo img{
+    width:60px;
+    height:60px;
+}
+.program_container{
+    width:100%;
+    height:100%;
+    padding:20px 2px;
+    margin:auto;
+ 
+}
+.main_related_program{
+    width:95%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 300px ;
+   
+    gap:10px;
+}
+.searched-program{
+    width:100%;
+   
+    padding:30px 10px;
+    height:100%;
+   
+    
+}
+.searched-program_container{
+    width:90%;
+    margin:Auto;
+    display:grid;
+    grid-template-columns:1fr 100px;
+    background:#fff;
+    border:1px solid rgb(188, 232, 248);
+   box-shadow: 4px 4px 10px 2px rgb(219, 219, 219);
+    padding:20px 1px;
+    border-radius:9px;
+    
+    
+}
+.searched-program_container svg{
+    color:rgb(253, 154, 85);
+    width:20px;
+    height:20px;
+}
+.searched-program_description{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    width:100%;
+    padding:35px 10px;
+}
+.searched-program_description h4{
+    color:rgb(0, 147, 206);
+}
+.related_program{
+    padding:30px 0px;
+    display:grid;
+    grid-template-rows:30px repeat(auto-fill, minmax(100px, auto));
+    gap:10px;
+}
+.related_program_card{
+    position:relative;
+    
+    
+    background:#fff;
+    box-shadow:4px 4px 10px rgb(219,219,219);
+    padding:35px 10px;
+   
+    
+}
+.rel_prog_name{
+    color:rgb(0, 147, 206);
+    text-decoration:none;
+    font-size:16px;
+    margin-top:0;
+    width:70%;
+    
+}
+.related_program_card ul li{
+    color:rgb(39, 39, 39);
+    list-style: none;
+}
+.rel_prog_btn{
+   
+    background:rgb(0, 147, 206);
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    border-radius:7.5px;
+    color:#fff;
+    font-size:12px;
+    text-decoration:none;
+    padding:5px 5px;
+    
+}
+.all_programs{
+    padding:30px 20px;
+    display:grid;
+    grid-template-rows:repeat auto;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px; 
+   
+}
+.each_program_card{
+        
+    background:#fff;
+    box-shadow:4px 4px  10px 2px rgb(219,219,219);
+    padding:35px 10px;
+    position:relative;
+}

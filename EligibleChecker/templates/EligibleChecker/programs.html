@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="top_background">
+    <h2>Programs offered in {{ university.name }}</h2>
+
+<form method="GET" class="search_form2" action="">
+    <select name="query" id="program">
+        <option value="" disabled selected>-- Select a Program --</option>
+        {% for program in all_programs %}
+            <option value="{{ program.name }}" {% if program.name|lower == query|lower %}selected{% endif %}>{{ program.name }}</option>
+            {% empty %}
+            <option disabled>No programs available</option>
+        {% endfor %}
+    </select>
+
+
+   
+<button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+    </svg>
+
+</button>
+
+</form>
+</div>
+
+<!-- Check if programs list is not empty -->
+ <div class="program_container">
+    
+        {% if all_programs %}
+        <div class="university_holder">
+            <div class="university_logo">
+                <img src="{{ university.university_logo.url }}" class="card-img-top card_img" alt="{{ university.name }} logo">
+            </div>
+            <div class="university_name"><h2>{{ university.name }}</h2></div>
+           
+        </div>
+            
+            <div class="main_related_program">
+            
+           
+                {% if selected_program %}
+                    <div class="searched-program">
+                        <div class="searched-program_container">
+                            <div class="searched-program_description">
+                                <h4>{{ selected_program.name }}</h4>
+                             
+                               
+                                
+                                    {% for program_type in selected_program.filtered_program_types %}
+                                        <p>Course Type: {{ program_type.get_type_display }}</p>
+                                        <p>Entry_requirements: {{ program_type.entry_requirements }}</p>
+                                        <p>Duration: {{ program_type.duration }}</p>
+                                    {% empty %}
+                                        <li>No program types available</li>
+                                    {% endfor %}
+                                
+                            </div>
+                            <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                              </svg>   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
+                                <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2z"/>
+                              </svg>
+                            </div>
+                            
+                        </div>
+                    </div>
+               
+            <!-- Display related programs (skip the first one) -->
+                {% if selected_program and related_programs %}
+            
+                    <div class="related_program">
+                        <h3>Related Programs</h3>
+                    
+                        {% for related_program in related_programs %}
+                        <div class="related_program_card">
+                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}" class="rel_prog_name">{{ related_program.name }}</a>
+                                
+                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}"class="rel_prog_btn">View Details</a>
+                            
+                        </div>   
+                        {% endfor %}
+                    
+                {% else %}
+
+                    <p>No related programs found.</p>
+                {% endif %}
+
+            {% else %}
+            <!-- Display All Programs (When No Program is Selected) -->
+            <div class="all_programs">
+                
+                {% for program in all_programs %}
+                <div class="each_program_card">
+                    
+                        
+                            <a href="?selected_program={{ program.id }}&university_id={{ university.id }}" class="rel_prog_name">{{ program.name }}</a>
+                        
+                            <a href="?selected_program={{ program.id }}&university_id={{ university.id }}" class="rel_prog_btn">View Details</a>
+                    </div>
+                    {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+    </div>
+        {% else %}
+            <p>No programs found.</p>
+        {% endif %}
+    
+</div>
+{% endblock %}

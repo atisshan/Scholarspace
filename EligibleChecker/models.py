@@ -53,6 +53,13 @@ class ProgramType(models.Model):
     Email=models.EmailField()
     website_link=models.URLField()
 
+    def get_requirements_list(self):
+    #    converting text into list
+        if not self.entry_requirements:
+            return []
+        # Split by newlines and remove empty lines
+        return [req.strip() for req in self.entry_requirements.split('\n') if req.strip()]
+
 
     def __str__(self):
         return f"{self.program.name} - {self.get_type_display()}- {self.university.name}"

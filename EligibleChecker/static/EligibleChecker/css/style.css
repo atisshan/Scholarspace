@@ -10,18 +10,22 @@ padding:0;
 body{
     width:100%;
     padding:10px 10px;
-    height:100vh;
+    min-height:100vh;
     font-family: Arial, Helvetica, sans-serif;
     background:#f7f6f6 ;
+    border-radius:20px;
     
 }
 .hero-section{
     width:100%;
     height:100%;
+  
 }
 .custom-navbar{
-    height:12%;
+    height:10%;
     background:#fff !important;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
    
 }
 /* .navbar-nav{
@@ -494,7 +498,11 @@ form button:hover{
    box-shadow: 4px 4px 10px 2px rgb(219, 219, 219);
    width:100%;
    position:relative;
+   transition:transform 0.3s
    
+}
+.scholarship_card:hover{
+    transform:translateY(-10px);
 }
 .scholarship_card p{
     margin-top:20px;
@@ -512,8 +520,8 @@ li{
 }
 .scholarship_card img{
     position:relative;
-    width:20%;
-    height:80%;
+    width:30%;
+    height:100%;
   z-index:1;
   border-radius:0;
   
@@ -555,17 +563,18 @@ li{
 .university_holder{
     display: flex;
     align-items: center; 
-    gap: 10px; 
-    width: 40%;
+    
+    width: 70%;
     text-align: left;
 }
 .university_name{
     white-space: nowrap; 
     font-size: 1.2rem;
+
 }
 
-.university_logo img{
-    width:60px;
+.university_logo{
+    width:10%;
     height:60px;
 }
 .program_container{
@@ -582,6 +591,9 @@ li{
     grid-template-columns:1fr 300px ;
    
     gap:10px;
+}
+.requirements-list li{
+    color:rgb(50,50,50);
 }
 .searched-program{
     width:100%;
@@ -674,4 +686,300 @@ li{
     box-shadow:4px 4px  10px 2px rgb(219,219,219);
     padding:35px 10px;
     position:relative;
+}
+.about-hero {
+    padding:20px 0;
+    background:linear-gradient(rgb(0,147,206, 0.9), rgb(0,147,206, 0.4)),url("../images/sincerely-media-dGxOgeXAXm8-unsplash.jpg");
+    height:180px;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    background-size: cover;
+
+   
+}
+
+.about-hero h1 {
+    color:#fff;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align:center;
+    margin-top:50px;
+    font-size:25px;
+    
+}
+.about-hero2{
+    padding:30px 2px;
+}
+.about-hero .lead {
+    color:rgb(240, 251, 255);
+    font-size:18px;
+    font-weight:lighter;
+    text-align:center;
+
+}
+
+.mission-section {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.mission-section h3 {
+    color: #FF9A55;
+    font-size: 1.5rem;
+}
+
+.mission-section i {
+    margin-right: 10px;
+}
+.img-holder
+
+{
+    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 100%), url('../images/dom-fou-YRMWVcdyhmI-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 300px; /* Adjust as needed */
+    border-radius: 10px;
+}
+/* Features Section */
+.features-section {
+    padding: 80px 0;
+    background:linear-gradient(135deg, rgba(0, 147, 206, 0.1) 0%, rgba(255, 154, 85, 0.1) 100%);
+    color: white;
+}
+
+.features-section h2 {
+    color:rgb(0, 147, 206);
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 0 !important; 
+    transition: transform 0.3s;
+    color: #333;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.fc2{
+    background:rgb(240, 251, 255);
+}
+.fc3{
+    background:#f7f6f6;
+}
+.fc4{
+    background: #fffefe;}
+.fc5{
+    background:#f7ceb4;
+}
+.fc6{
+    background:#fff;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #0093CE;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    color: #0093CE;
+    font-weight: 600;
+}
+/* Footer */
+.site-footer {
+    background: linear-gradient(135deg, #0093CE 0%, #006B8F 100%);
+    color: white;
+    padding: 60px 0 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.footer-brand img {
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+}
+
+.logo-text span {
+    color: #FF9A55;
+}
+
+.footer-links,
+.footer-contact {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-links li,
+.footer-contact li {
+    margin-bottom: 10px;
+    color:#fff;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #FF9A55;
+}
+
+.footer-contact i {
+    color: #FF9A55;
+    margin-right: 10px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #FF9A55;
+}
+
+.footer-bottom {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .footer-brand {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .footer-links,
+    .footer-contact {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+.contact-page {
+    
+    min-height: calc(100vh - 150px); /* Adjust based on header/footer height */
+}
+
+.contact-page h1 {
+    color:white;
+    font-weight: 700;
+   
+    padding-bottom: 15px;
+}
+
+.contact-page h1::after {
+    content: '';
+    display:block;
+ 
+}
+
+.contact-page h3 {
+    color: rgb(0, 147, 206);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+/* Form Styles */
+.contact-page form {
+    background: white;
+    padding: 30px;
+    margin:0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    width:500px;
+}
+
+.contact-page label {
+    display: block;
+    margin-bottom: 8px;
+    color:#333;
+    font-weight: 500;
+}
+
+.contact-page input[type="text"],
+.contact-page input[type="email"],
+.contact-page textarea {
+    width: 100%;
+    padding:7px 2px ;
+    border:1px solid rgb(50, 50, 50, 0.4);
+    border-radius:7.5px;
+    
+    transition: all 0.3s;
+}
+
+.contact-page input[type="text"]:focus,
+.contact-page input[type="email"]:focus,
+.contact-page textarea:focus {
+    border-color: #0093CE;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 147, 206, 0.2);
+}
+
+.contact-page textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-page button[type="submit"] {
+    background:rgb(255, 154, 85);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.contact-page button[type="submit"]:hover {
+    background:rgb(250, 132, 53);
+    transform: translateY(-2px);
+}
+
+/* Contact Info Styles */
+.contact-methods p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.contact-methods i {
+    color: #FF9A55;
+    font-size: 1.3rem;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .contact-page .col-md-6:first-child {
+        margin-bottom: 40px;
+    }
+    
+    .contact-page h1 {
+        font-size: 2rem;
+    }
 }

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="contact-page py-5">
+    <div class="container ct3">
+
+        <section class="about-hero">
+            <div class="container">
+                <h1 class="text-center mb-5">Contact Us</h1>
+                
+              
+            </div>
+        </section>
+        
+        <div class="row form-row">
+            <!-- Form Column -->
+            <div class="col-md-6">
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_name">Your Name</label>
+                        <input type="text" name="name" id="id_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email">Email Address</label>
+                        <input type="email" name="email" id="id_email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_message">Your Message</label>
+                        <textarea name="message" id="id_message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send-fill me-2"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Contact Info Column -->
+            <div class="col-md-6 py-5 contact-methods">
+                <h3>Get in Touch</h3>
+                <p><i class="bi bi-envelope-fill"></i> Email: info@scholarspace.com</p>
+                <p><i class="bi bi-telephone-fill"></i> Phone: +254 700 123456</p>
+                <p><i class="bi bi-geo-alt-fill"></i> Address: Nairobi, Kenya</p>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

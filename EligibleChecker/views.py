@@ -1,10 +1,19 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import University, Program, SavedProgram, ProgramType
 from django.db.models import Q
-from .form import CreateCustomUserForm
+from .form import CreateCustomUserForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from django.http import HttpResponse
+import os
+from reportlab.lib.pagesizes import letter
+from PIL import Image  # For logo processing
+import io  # To convert image formats
+
 
 # Create your views here.
 
@@ -227,3 +236,102 @@ def home_search_results(request):
         'program_types': program_types,
         'program_categories': PROGRAM_CATEGORIES,  # Pass categories to template
     })
+
+def download_program_pdf(response, program_id):
+
+    program = get_object_or_404(Program, id=program_id)
+
+    program_type = ProgramType.objects.filter(program=program).first()
+   
+    university = program.university
+    logo_path = university.university_logo.path 
+    
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{program.name}.pdf"'
+
+    p = canvas.Canvas(response, pagesize=A4)
+    width, height = A4  # Get A4 dimensions
+
+   
+    logo_width = 100
+    logo_height = 100
+
+    # **HEADER SECTION**
+    # University Details (Top Left)
+    y_position = height - 50
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, y_position, f"Department: {program_type.department}")
+    y_position -= 20
+    p.drawString(50, y_position, f"Name: {university.name}")
+    y_position -= 20
+    p.drawString(50, y_position, f"Phone: {university.main_phone_number}")
+    y_position -= 20
+    p.drawString(50, y_position, f"Email: {program_type.Email}")
+    p.linkURL(f"mailto:{program_type.Email}", (50, y_position - 2, 300, y_position + 10))  # Clickable Email
+    y_position -=20
+    p.drawString(50, y_position, f"Website: {university.main_website_link}")
+    p.linkURL(university.main_website_link, (50, y_position - 2, 400, y_position + 10))  # Clickable Website
+
+
+    # **University Name & Logo at Center**
+    y_center = height - 40  # Slightly lower than page top
+    p.drawImage(logo_path, width / 2 - 50, y_center - 50, logo_width, logo_height, mask="auto")  # Centered logo
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(width / 2 - 60, y_center, university.name)  # Name centered inline with logo
+
+    # **PROGRAM DETAILS**
+    y_position -= 80  # Move down after header
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, y_position, f"Program Name: {program.name}")
+
+    y_position -= 20
+    p.drawString(50, y_position, f"Course Type: {program_type.get_type_display()}")
+
+    y_position -= 20
+    p.drawString(50, y_position, "Entry Requirements:")
+
+    y_position -= 20
+    for req in program_type.get_requirements_list():
+        p.drawString(70, y_position, f"- {req}")
+        y_position -= 15
+
+    y_position -= 10
+    p.drawString(50, y_position, f"Duration: {program_type.duration}")
+
+    y_position -= 20
+    p.drawString(50, y_position, f"Email: {program_type.Email}")
+    p.linkURL(f"mailto:{program_type.Email}", (50, y_position - 2, 300, y_position + 10))  # Clickable Email
+
+    y_position -= 20
+    p.drawString(50, y_position, f"Website: {university.main_website_link}")
+    p.linkURL(university.main_website_link, (50, y_position - 2, 400, y_position + 10))  # Clickable Website
+
+    p.showPage()
+    p.save()
+
+    return response
+
+
+def AboutView(request):
+
+    return render(request,"EligibleChecker/about.html")
+
+def contact(request):
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Send email
+            send_mail(
+                subject=f"New contact from {form.cleaned_data['name']}",
+                message=form.cleaned_data['message'],
+                from_email=form.cleaned_data['email'],
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            )
+            return redirect('contact_success')
+    else:
+        form = ContactForm()
+    return render(request, 'EligibleChecker/contact.html', {'form': form})
+
+def contact_success_view(request):
+    return render(request, 'EligibleChecker/contact_success.html')

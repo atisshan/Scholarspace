@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <h1 class="mb-4">Thank You!</h1>
+    <div class="alert alert-success">
+        <p>Your message has been sent successfully.</p>
+        <p>We'll get back to you within 24 hours.</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-primary">Return Home</a>
+</div>
+{% endblock %}

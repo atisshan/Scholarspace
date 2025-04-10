@@ -7,10 +7,10 @@ import re
 class CreateCustomUserForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-    username = forms.CharField(max_length=150, required=True, help_text="Required. 150 characters or fewer. Letters, digits, and @/./+/-/_ only.")
+    
     class Meta:
         model=CustomUser
-        fields=['username','email',  'password1', 'password2']
+        fields=['email',  'password1', 'password2']
 
 
     def clean_password2(self):
@@ -42,14 +42,14 @@ class CreateCustomUserForm(forms.ModelForm):
             raise forms.ValidationError("This email address is already in use.")
         return email
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
+    # def clean_username(self):
+    #     username = self.cleaned_data.get('username')
     
-        if not re.match(r'^[a-zA-Z0-9@.+_-]+$', username):  # Ensure username has valid characters
-            raise forms.ValidationError("Username can only contain letters, digits, and @/./+/-/_ characters.")
-        if CustomUser.objects.filter(username=username).exists():
-            raise forms.ValidationError("This username is already taken.")
-        return username
+    #     if not re.match(r'^[a-zA-Z0-9@.+_-]+$', username):  # Ensure username has valid characters
+    #         raise forms.ValidationError("Username can only contain letters, digits, and @/./+/-/_ characters.")
+    #     if CustomUser.objects.filter(username=username).exists():
+    #         raise forms.ValidationError("This username is already taken.")
+    #     return username
     
     def save(self, commit=True):
         user = super().save(commit=False)

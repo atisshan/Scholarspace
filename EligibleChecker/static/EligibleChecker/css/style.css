@@ -47,6 +47,19 @@ body{
 .nav-item a:hover{
     color:rgb(255, 154, 85);
 }
+.reg_btn{
+    padding:10px 30px;
+    background:rgb(255, 154, 85);
+    color:#fff !important;
+    border-radius:7.5px;
+    border:none;
+    transition:all 0.1s ease;
+  
+}
+.reg_btn:hover{
+    background:rgb(250, 132, 53);
+    transform:translateY(-5px);
+}
 .logotext{
     color:rgb(255, 154, 85);
     font-family: 'Playfair Display', serif;
@@ -100,7 +113,7 @@ span{
     margin-bottom:20px;
     margin-top:10px;
 }
-.hero-text a{
+/* .hero-text a{
     padding:15px 100px;
     background:rgb(255, 154, 85);
     color:white;
@@ -108,12 +121,14 @@ span{
     border:none;
     box-shadow:4px 4px 10px rgb(0, 147, 206);
     font-size:18px;
+    transition: all 0.1s ease;
     
 }
 .hero-text a:hover{
-    background:rgb(240, 251, 255);
-    color:rgb(255, 154, 85);
-}
+    background:rgb(250, 132, 53);
+    
+    transform:translateY(-5px);
+} */
 .header{
     width:100%;
     height:100%;
@@ -206,9 +221,9 @@ form div ul li{
     display:flex;
     flex-direction:row;
     justify-content:space-between;
-    width:40%;
+    width:60%;
     margin:auto;
-    margin-right:48%;
+    
 }
 .search_form select{
     padding:10px 30px;
@@ -225,10 +240,12 @@ form div ul li{
     border:none;
     box-shadow:4px 4px 10px rgb(0, 147, 206);
     font-size:18px;
+    transition:all 0.1s ease
 }
 .search_form button:hover{
-    background-color: rgb(240, 251, 255);
-    color:rgb(255, 154, 85);
+    background-color: rgb(250, 132, 53);
+    transform:translateY(-5px)
+    
 }
 
 
@@ -250,9 +267,12 @@ form div ul li{
     display:flex;
     flex-direction:row;
     justify-content:center;
-    width:30%;
+    width:50%;
     gap:2px;
     
+}
+.subProgram{
+    margin-left:15px;
 }
 .search_form2 select{
     border:1px solid rgb(240, 251, 255);
@@ -631,6 +651,8 @@ li{
 .searched-program_description h4{
     color:rgb(0, 147, 206);
 }
+
+
 .related_program{
     padding:30px 0px;
     display:grid;
@@ -876,6 +898,42 @@ li{
     .social-links {
         justify-content: center;
     }
+    .scholarship_list{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
+    .university_list{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
+    .search_form{
+        display:flex;
+        flex-direction:column;
+        margin:0;
+        width:100%;
+        gap:15px;
+    }
+    .subProgram{
+        margin-left:0;
+    }
+    .search_form2{
+        width:90%;
+        margin:auto;
+        
+    }
+    .scholarship_filter_content{
+        display:grid;
+        grid-template-columns:1fr;
+        grid-template-rows:250px 1fr;
+    }
+    .main_related_program{
+        display:grid;
+        grid-template-columns:1fr;
+        grid-template-rows:1fr 1fr;
+    }
+   
 }
 
 .contact-page {
@@ -906,7 +964,7 @@ li{
 .contact-page form {
     background: white;
     padding: 30px;
-    margin:0;
+    margin:10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     width:500px;
 }
@@ -943,7 +1001,7 @@ li{
 }
 
 .contact-page button[type="submit"] {
-    background:rgb(255, 154, 85);
+    background:rgb(0, 147, 206);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -953,14 +1011,14 @@ li{
 }
 
 .contact-page button[type="submit"]:hover {
-    background:rgb(250, 132, 53);
+    background:rgb(0, 122, 170);
     transform: translateY(-2px);
 }
 
 /* Contact Info Styles */
 .contact-methods p {
     margin-bottom: 20px;
-    font-size: 1.1rem;
+    font-size: 16px;
     display: flex;
     align-items: center;
 }
@@ -969,9 +1027,42 @@ li{
     color: #FF9A55;
     font-size: 1.3rem;
     margin-right: 15px;
-    width: 25px;
+    width: 30px;
     text-align: center;
+
 }
+.bi-envelope-fill{
+    width:40px;
+    height:40px;
+}
+.contact_container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    padding-top:20px;
+}
+.method{
+    display:grid;
+    grid-template-columns:40px 1fr;
+    grid-template-rows:1fr;
+    background:#f7f6f6;
+}
+
+.method2{
+    display:block;
+}
+.method2 h6{
+    font-weight:bold;
+}
+
+.contact_desc{
+    display:block;
+    text-align:left;
+}
+.contact_desc h6{
+    font-weight:bold;
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 767.98px) {

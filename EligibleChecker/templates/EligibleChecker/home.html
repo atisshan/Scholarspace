@@ -51,7 +51,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle reg_btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Register
                       </a>
                       <ul class="dropdown-menu">
@@ -78,7 +78,7 @@
                 
                 
                 <form method="GET" action="{% url 'home_search_results' %}" class="search_form">
-                  <select id="category" name="category">
+                  <select id="category" name="category" required>
                     <option value="" disabled selected>Choose a Category</option>
                     {% for category in program_categories.keys %}
                         <option value="{{ category }}">{{ category }}</option>
@@ -86,7 +86,7 @@
                   </select>
             
                 
-                  <select id="subprogram" name="query" style="display: none;">
+                  <select id="subprogram" name="query" class="subProgram" required >
                     <option value="" disabled selected>Choose a Program</option>
                   </select>
             
@@ -119,6 +119,11 @@
               // Show subprogram dropdown
               subprogramDropdown.style.display = "block";
           }
+
+          else {
+            // If no subprograms, hide the dropdown
+            subprogramDropdown.style.display = "none";
+        }
       });
   </script>
 </body>

@@ -5,7 +5,9 @@
 <div class="top_background">
     <h2>Programs offered in {{ university.name }}</h2>
 
-<form method="GET" class="search_form2" action="">
+ <form method="GET" class="search_form2" action=""> 
+
+
     <select name="query" id="program">
         <option value="" disabled selected>-- Select a Program --</option>
         {% for program in all_programs %}
@@ -15,6 +17,8 @@
         {% endfor %}
     </select>
 
+    <input type="hidden" name="{{ selected_category }}" id="{{ selected_category }}">
+
 
    
 <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -22,9 +26,9 @@
     </svg>
 
 </button>
-
-</form>
+</form> 
 </div>
+
 
 <!-- Check if programs list is not empty -->
  <div class="program_container">
@@ -75,10 +79,16 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
                                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                              </svg> </a>  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
-                                <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2z"/>
-                              </svg>
-                            </div>
+                              </svg> </a> 
+
+                              {% if not request.user.is_authenticated %}
+                                <div class="alert alert-warning mt-3">
+                                    <i class="bi bi-exclamation-triangle"></i> 
+                                    You must <a href="{% url 'login' %}?next={% url 'programs' program.id %}">log in</a> to download program details.
+                                </div>
+                            {% endif %}
+                                                        
+                        </div>
                             
                         </div>
                     </div>
@@ -91,9 +101,9 @@
                     
                         {% for related_program in related_programs %}
                         <div class="related_program_card">
-                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}" class="rel_prog_name">{{ related_program.name }}</a>
+                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}&category={{ selected_category }}" class="rel_prog_name">{{ related_program.name }}</a>
                                 
-                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}"class="rel_prog_btn">View Details</a>
+                            <a href="?selected_program={{ related_program.id }}&university_id={{ university.id }}&category={{ selected_category }}"class="rel_prog_btn">View Details</a>
                             
                         </div>   
                         {% endfor %}
@@ -125,4 +135,24 @@
         {% endif %}
     
 </div>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const PROGRAM_CATEGORIES = {{ PROGRAM_CATEGORIES|safe }};
+
+  document.querySelector('.search_form2').addEventListener('submit', function (e) {
+    const selectedProgram = document.getElementById("program").value;
+    const categoryInput = document.getElementById("category")
+
+    for (const category in PROGRAM_CATEGORIES) {
+      if (PROGRAM_CATEGORIES[category].includes(selectedProgram)) {
+        categoryInput.value = category;
+        console.log("Selected category:", categoryInput.value);
+        break;
+      }
+    }
+  });
+});
+
+</script>
 {% endblock %}

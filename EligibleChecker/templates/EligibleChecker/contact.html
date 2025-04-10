@@ -16,6 +16,7 @@
             <!-- Form Column -->
             <div class="col-md-6">
                 <form method="post" class="contact-form">
+                    <h2>Send a message </h2>
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="id_name">Your Name</label>
@@ -38,9 +39,52 @@
             <!-- Contact Info Column -->
             <div class="col-md-6 py-5 contact-methods">
                 <h3>Get in Touch</h3>
-                <p><i class="bi bi-envelope-fill"></i> Email: info@scholarspace.com</p>
-                <p><i class="bi bi-telephone-fill"></i> Phone: +254 700 123456</p>
-                <p><i class="bi bi-geo-alt-fill"></i> Address: Nairobi, Kenya</p>
+                <p>We'd love to hear from you! Whether you have questions about our programs, need assistance, or just want to know more, our team is here to help. Reach out to us via phone, email, or visit our website for more information. We are committed to providing the support you need and look forward to connecting with you.</p>
+
+                <div class="contact_container">
+                
+
+                <div class="method">
+                    <div class="contact_icon"> <i class="bi bi-envelope-fill"></i></div>
+                    <div class="contact_desc">
+                        <h6>Email Us</h6>
+                        <a href="mailto:info@scholarspace.com">info@scholarspace.com</a>
+                    </div>
+                   
+                </div>
+                <div class="method">
+                <div class="contact_icon"><i class="bi bi-telephone-fill"></i> </div>
+                <div class="contact_desc">
+                    <h6>Get Us</h6>
+                    <p>+254 700 123456</p>
+                    
+                </div>
+                
+                    
+                </div>
+                <div class="method">
+                    <div class="contact_icon"><i class="bi bi-geo-alt-fill"></i></div>
+
+                    <div class="contact_desc">
+                        <h6>Visit Us</h6>
+                        <p>Nairobi, Kenya</p>
+                        
+                    </div>
+                    
+                
+                    
+                </div>
+
+                <div class="method2">
+                <h6>Follow Us</h6>
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+                </div>
+
                 
                 
             </div>

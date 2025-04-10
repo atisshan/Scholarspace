@@ -10,6 +10,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from django.http import HttpResponse
 import os
+
 from reportlab.lib.pagesizes import letter
 from PIL import Image  # For logo processing
 import io  # To convert image formats
@@ -19,122 +20,16 @@ import io  # To convert image formats
 
 
 PROGRAM_CATEGORIES = {
-        "Computer Science":  ["Bsc in Computer Science", "Bsc in Applied Computer Science", "Diploma in Computer Science",
-                              "Bsc in IT", "Diploma in IT", "Bsc in Information Systems", "Certificate in IT",
-                              "Bsc in Business Computing", "Bachelor of Business IT", "Diploma in Business IT",
-                              "Bsc in Computer Networks & Cyber Security", "Certificate in CCNA",
-                              "Bsc in Software Engineering", "Diploma in Software Development"]
+             "Computer Science":  ["BSc in Computer Science", "BSc in Applied Computer Science", "Diploma in Computer Science","BSc in Computer Technology",
+                              "BSc in Information Technology", "Diploma in Information Technology", "BSc in Information Systems", "Certificate in Information Technology",
+                              "BSc in Business Computing", "Bachelor of Business Information Technology", "Diploma in Business Information Technology",
+                              "BSc in Computer Networks & Cyber Security", "Certificate in CCNA",
+                              "BSc in Software Engineering", "Diploma in Software Development", "CISCO Certfication", "Diploma in Information Science", "Bsc in Computer Technology"],
+
+            "Architecture":     ["Bachelor of Architectural Studies/ Bachelor of Architecture"]                   
+
     }
 
-
-def home_view(request):
-    PROGRAM_CATEGORIES = {
-    "Computer Science":  ["Bsc in Computer Science", "Bsc in Applied Computer Science", "Diploma in Computer Science",
-    "Bsc in IT", "Diploma in IT", "Bsc in Information Systems", "Certificate in IT",
-    "Bsc in Business Computing", "Bachelor of Business IT", "Diploma in Business IT",
-    "Bsc in Computer Networks & Cyber Security", "Certificate in CCNA",
-    "Bsc in Software Engineering", "Diploma in Software Development"]
-    }
-    print(PROGRAM_CATEGORIES.keys())
-
-    programs = University.objects.values_list('programs__name', flat=True).distinct()  
-    return render(request, 'EligibleChecker/home.html', {'program_categories': PROGRAM_CATEGORIES,'programs': programs})
-
-    
-
-
-def universities(request):
-
-    universities=University.objects.all()
-    programs = University.objects.values_list('programs__name', flat=True).distinct() 
-
-
-    selected_filter = request.GET.get('university_type', 'all')
-     # Apply filter based on university type
-    if selected_filter == 'Public':
-        universities = universities.filter(type='Public')
-    elif selected_filter == 'Private':
-        universities = universities.filter(type='Private')
-
-    context = {
-        'universities': universities,
-        'selected_filter': selected_filter,
-        'programs':programs,
-    }
-    return render(request,"EligibleChecker/university_list.html" ,context)
-
-
-def programs(request, university_id):
-    
-    university = get_object_or_404(University, id=university_id)
-    print(university)
-    
-    query = request.GET.get('query', '').strip()
-    selected_program_id = request.GET.get('selected_program')  # Fetch selected program ID
-
-    # Get all programs offered by this university
-    all_programs = Program.objects.filter(university=university)
-    programs= University.objects.values_list('programs__name', flat=True).distinct() 
-    print("All Programs:", all_programs)
-
-
-    
- 
-
-    related_programs=[]
-    # Define related programs manually
-    related_keywords = {
-        "computer science": ["IT", "CCNA", "Cisco", "ICT", "Cyber Security", "Computer Networks", 'Information Science', 'Information Systems'],
-        "it": ["Computer Science", "CCNA", "Cisco", "ICT", "Cyber Security", "Computer Networks", 'Information Systems','Information Science'],
-        "ccna": ["Cisco", "IT", "Computer Science", "Cyber Security", 'Information Systems','Information Science'],
-        "cisco": ["CCNA", "IT", "Computer Networks",'Information Systems','Information Science'],
-        "ict": ["IT", "Computer Science", "Cyber Security",'Information Systems','Information Science'],
-        "cyber security": ["IT", "ICT", "Computer Networks",'Information Systems','Information Science'],
-        "computer networks": ["IT", "CCNA", "Cisco", "Cyber Security",'Information Systems','Information Science'],
-        "information science":["IT", "CCNA", "Cisco", "ICT", "Cyber Security",'Information Systems', "Computer Networks"],
-        'Information Systems':["IT", "CCNA", "Cisco", "ICT", "Cyber Security",'Information Science', "Computer Networks"]
-    }   
-    selected_program=None   
-    if selected_program_id:
-        selected_program = get_object_or_404(Program, id=selected_program_id, university=university)
-       
-        selected_program.filtered_program_types = selected_program.program_types.filter(university=university)
-       
-    # If no program is selected, show searched program
-    elif query:
-        searched_program = all_programs.filter(name__icontains=query.strip())
-           
-        if searched_program.exists():
-            selected_program = searched_program.first()  # Default to first found program
-            print(f"DEBUG: Selected program -> {selected_program}")  
-
-            selected_program.filtered_program_types = selected_program.program_types.filter(university=university)
-            print(f"DEBUG: Program Types Found -> {selected_program.filtered_program_types}")  # Debugging
-        else:
-            selected_program = None
-            
-    if selected_program:      # Fetch related programs
-        related_program_names = related_keywords.get(selected_program.name.lower(), [])
-        related_query = Q()
-        for keyword in related_program_names:
-                    related_query |= Q(name__icontains=keyword)
-
-        related_programs = all_programs.filter(related_query).exclude(id=selected_program.id)
-
-        
-   
-    if request.user.is_authenticated:
-        saved_programs = SavedProgram.objects.filter(user=request.user).values_list('program_id', flat=True)
-    else:
-        saved_programs = request.session.get('saved_programs', [])  # Get saved programs from session
-
-    return render(request, 'EligibleChecker/programs.html', { 'university': university,
-        'selected_program': selected_program,
-        'related_programs': related_programs,
-        'saved_programs': saved_programs,
-        'query': query,
-        'all_programs': all_programs,
-        'programs':programs})
 
 def signUp_view(request):
     if request.method =='POST':
@@ -153,17 +48,157 @@ def signUp_view(request):
 def login_view(request):
     next_url = request.GET.get('next', 'home')  # Get 'next' parameter, default to home
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
            
-            return redirect(next_url)
+            response = redirect(next_url)
+            response.set_cookie('email', email, max_age=60*60*24*7) 
+            return response
 
         else:
-            return render(request, 'EligibleChecker/login.html', {'error': 'Invalid username or password', 'next': next_url})
-    return render(request, 'EligibleChecker/login.html', {'next': next_url})
+            return render(request, 'EligibleChecker/login.html', {'error': 'Invalid email or password', 'next': next_url})
+        
+
+    email = request.COOKIES.get('email', '')    
+    return render(request, 'EligibleChecker/login.html', {'next': next_url, 'email': email})
+
+
+    
+
+
+def home_view(request):
+
+    PROGRAM_CATEGORIES = {
+        "Computer Science":  ["BSc in Computer Science", "BSc in Applied Computer Science", "Diploma in Computer Science","BSc in Computer Technology",
+                              "BSc in Information Technology", "Diploma in Information Technology", "BSc in Information Systems", "Certificate in Information Technology",
+                              "BSc in Business Computing", "Bachelor of Business Information Technology", "Diploma in Business Information Technology",
+                              "BSc in Computer Networks & Cyber Security", "Certificate in CCNA",
+                              "BSc in Software Engineering", "Diploma in Software Development", "CISCO Certfication", "Diploma in Information Science", "Bsc in Computer Technology"],
+
+        "Architecture":     ["Bachelor of Architectural Studies/ Bachelor of Architecture"]                   
+
+ 
+    }
+    
+  
+    
+    print(PROGRAM_CATEGORIES.keys())
+
+    programs = University.objects.values_list('programs__name', flat=True).distinct()  
+    return render(request, 'EligibleChecker/home.html', {'program_categories': PROGRAM_CATEGORIES,'programs': programs})
+
+    
+
+
+def universities(request):
+
+    universities=University.objects.all()
+    programs = University.objects.values_list('programs__name', flat=True).distinct() 
+      
+ 
+
+    search_query=request.GET.get('query', '').strip()
+    if search_query:
+        universities=universities.filter(name__icontains=search_query)
+    
+   
+
+    selected_filter = request.GET.get('university_type', 'all')
+     # Apply filter based on university type
+    if selected_filter == 'Public':
+        universities = universities.filter(type='Public')
+    elif selected_filter == 'Private':
+        universities = universities.filter(type='Private')
+
+    context = {
+        'universities': universities,
+        'selected_filter': selected_filter,
+        'programs':programs,
+     
+    }
+    return render(request,"EligibleChecker/university_list.html" ,context)
+
+
+def programs(request, university_id):
+    
+    university = get_object_or_404(University, id=university_id)
+    print(university)
+    
+    query = request.GET.get('query', '').strip()
+    selected_program_id = request.GET.get('selected_program')  # Fetch selected program ID
+    category_param = request.GET.get("category")
+
+    print(category_param)
+
+    # Get all programs offered by this university
+    all_programs = Program.objects.filter(university=university)
+    programs= University.objects.values_list('programs__name', flat=True).distinct() 
+    print("All Programs:", all_programs)
+
+
+    
+ 
+
+    related_programs=[]
+    
+    selected_program=None 
+
+    selected_category = category_param 
+
+    if selected_program_id:
+        selected_program = get_object_or_404(Program, id=selected_program_id, university=university)
+       
+        selected_program.filtered_program_types = selected_program.program_types.filter(university=university)
+       
+    # If no program is selected, show searched program
+    elif query:
+        searched_program = all_programs.filter(name__icontains=query.strip())
+           
+        if searched_program.exists():
+            selected_program = searched_program.first()  # Default to first found program
+            print(f"DEBUG: Selected program -> {selected_program}")  
+
+            selected_program.filtered_program_types = selected_program.program_types.filter(university=university)
+            print(f"DEBUG: Program Types Found -> {selected_program.filtered_program_types}")  # Debugging
+        else:
+            selected_program = None
+
+ 
+
+    if not selected_category and selected_program:
+        for category, programs_list in PROGRAM_CATEGORIES.items():
+            if selected_program.name in programs_list:
+                selected_category = category
+                break # Stop searching after finding the category
+
+        # Fetch related programs in the same category
+    if selected_category:
+            related_query = Q()
+            for program in PROGRAM_CATEGORIES[selected_category]:
+                related_query |= Q(name__icontains=program)  # Use icontains for case-insensitive matching
+
+            related_programs = all_programs.filter(related_query).exclude(id=selected_program.id)
+
+
+    
+    if request.user.is_authenticated:
+        saved_programs = SavedProgram.objects.filter(user=request.user).values_list('program_id', flat=True)
+    else:
+        saved_programs = request.session.get('saved_programs', [])  # Get saved programs from session
+
+    return render(request, 'EligibleChecker/programs.html', { 'university': university,
+        'selected_program': selected_program,
+        'related_programs': related_programs,
+        'saved_programs': saved_programs,
+        'query': query,
+        'all_programs': all_programs,
+        'programs':programs,
+        'selected_category':selected_category,
+        'PROGRAM_CATEGORIES':PROGRAM_CATEGORIES
+        })
 
 
 def saved_programs(request, program_id):
@@ -237,8 +272,12 @@ def home_search_results(request):
         'program_categories': PROGRAM_CATEGORIES,  # Pass categories to template
     })
 
-def download_program_pdf(response, program_id):
 
+def download_program_pdf(request, program_id):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "Please login first to download the program info.")
+        return redirect('login') 
     program = get_object_or_404(Program, id=program_id)
 
     program_type = ProgramType.objects.filter(program=program).first()
@@ -252,14 +291,23 @@ def download_program_pdf(response, program_id):
     p = canvas.Canvas(response, pagesize=A4)
     width, height = A4  # Get A4 dimensions
 
-   
     logo_width = 100
     logo_height = 100
 
     # **HEADER SECTION**
-    # University Details (Top Left)
-    y_position = height - 50
-    p.setFont("Helvetica-Bold", 12)
+    # University Logo and Name (Inline with spacing)
+    y_position = height - 100
+    p.setFont("Helvetica-Bold", 16)
+    
+    # Logo at the top-left
+    p.drawImage(logo_path, 50, y_position, logo_width, logo_height, mask="auto") 
+    
+    # University name next to the logo with spacing
+    p.drawString(150, y_position + 40, university.name)  # Spacing between logo and name
+    
+    # **Contact Information (Left-aligned)**
+    y_position -= 30  # Move down after university info
+    p.setFont("Helvetica", 16)
     p.drawString(50, y_position, f"Department: {program_type.department}")
     y_position -= 20
     p.drawString(50, y_position, f"Name: {university.name}")
@@ -268,23 +316,20 @@ def download_program_pdf(response, program_id):
     y_position -= 20
     p.drawString(50, y_position, f"Email: {program_type.Email}")
     p.linkURL(f"mailto:{program_type.Email}", (50, y_position - 2, 300, y_position + 10))  # Clickable Email
-    y_position -=20
+    y_position -= 20
     p.drawString(50, y_position, f"Website: {university.main_website_link}")
     p.linkURL(university.main_website_link, (50, y_position - 2, 400, y_position + 10))  # Clickable Website
 
+    # **Margin Before Program Name**
+    y_position -= 60  # Add margin top before program name
+    
+    # **Program Name (Centered, Bold)**
+    p.setFont("Helvetica-Bold", 18)
+    p.drawString(width / 2 - 270, y_position, program.name)  # Centered program name with bold
 
-    # **University Name & Logo at Center**
-    y_center = height - 40  # Slightly lower than page top
-    p.drawImage(logo_path, width / 2 - 50, y_center - 50, logo_width, logo_height, mask="auto")  # Centered logo
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(width / 2 - 60, y_center, university.name)  # Name centered inline with logo
-
-    # **PROGRAM DETAILS**
-    y_position -= 80  # Move down after header
-    p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, y_position, f"Program Name: {program.name}")
-
-    y_position -= 20
+    # **PROGRAM DETAILS (Left-aligned)**
+    y_position -= 40  # Move down after program name
+    p.setFont("Helvetica", 14)
     p.drawString(50, y_position, f"Course Type: {program_type.get_type_display()}")
 
     y_position -= 20
@@ -298,19 +343,11 @@ def download_program_pdf(response, program_id):
     y_position -= 10
     p.drawString(50, y_position, f"Duration: {program_type.duration}")
 
-    y_position -= 20
-    p.drawString(50, y_position, f"Email: {program_type.Email}")
-    p.linkURL(f"mailto:{program_type.Email}", (50, y_position - 2, 300, y_position + 10))  # Clickable Email
-
-    y_position -= 20
-    p.drawString(50, y_position, f"Website: {university.main_website_link}")
-    p.linkURL(university.main_website_link, (50, y_position - 2, 400, y_position + 10))  # Clickable Website
-
+  
     p.showPage()
     p.save()
 
     return response
-
 
 def AboutView(request):
 
